@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<ScriptPackage>
+		<Script isActive="yes" isFolder="no">
+			<name>Custom UI</name>
+			<packageName></packageName>
+			<script>--------------------------------------------------------------------------------------------------------
+
+local w,h = getMainWindowSize()
+setBorderLeft(w/4)
+setBorderRight(w/4)
+setBorderBottom(h/6)
+setBorderTop(0)
+
+--------------------------------------------------------------------------------------------------------
+
+ui_left = Geyser.Label:new({
+	name = "ui_left",
+	x = 0, y = 0,
+	width = "25%", height = "100%",
+	color = "blue",
+})
+
+ui_right = Geyser.Label:new({
+	name = "ui_right",
+	x = "-25%", y = 0,
+	width = "25%", height = "100%",
+	color = "blue",
+})
+
+ui_bottom = Geyser.Label:new({
+	name = "ui_bottom",
+	x = "25%", y = -200,
+	width = "50%", height = "200px",
+	color = "blue",
+})
+
+--------------------------------------------------------------------------------------------------------
+
+ui_left_VBox = Geyser.VBox:new({
+	name = "ui_left_VBox",
+	x = 0; y = 0,
+	height = "100%", width = "100%",
+}, ui_left)
+
+ui_right_VBox = Geyser.VBox:new({
+	name = "ui_right_VBox",
+	x = 0; y = 0,
+	height = "100%", width = "100%",
+}, ui_right)
+
+ui_bottom_container = Geyser.Container:new({
+	name = "ui_bottom_container",
+	x = 0; y = 0,
+	height = "100%", width = "100%",
+}, ui_bottom)
+
+--------------------------------------------------------------------------------------------------------
+
+ui_left_VBox_top = Geyser.Container:new({
+	name = "ui_left_VBox_top",
+	x = 0, y = 0,
+	width = "100%", height = "100%",
+}, ui_left_VBox)
+
+ui_left_VBox_middle = Geyser.Container:new({
+	name = "ui_left_VBox_middle",
+	x = 0, y = 0,
+	width = "100%", height = "100%",
+}, ui_left_VBox)
+
+ui_left_VBox_bottom = Geyser.Container:new({
+	name = "ui_left_VBox_bottom",
+	x = 0, y = 0,
+	width = "100%", height = "100%",
+}, ui_left_VBox)
+
+--------------------------------------------------------------------------------------------------------
+
+alignment = "6.25%"
+
+size = "87.5%"
+
+ui_left_VBox_top_holder = Geyser.Container:new({
+	name = "ui_left_VBox_top_holder",
+	x = alignment, y = alignment,
+	width = size, height = size,
+}, ui_left_VBox_top)
+
+
+ui_left_VBox_middle_holder = Geyser.Container:new({
+	name = "ui_left_VBox_middle_holder",
+	x = alignment, y = alignment,
+	width = size, height = size,
+}, ui_left_VBox_middle)
+
+
+ui_left_VBox_bottom_holder = Geyser.Container:new({
+	name = "ui_left_VBox_middle_holder",
+	x = alignment, y = alignment,
+	width = size, height = size,
+}, ui_left_VBox_bottom)
+
+--------------------------------------------------------------------------------------------------------
+
+ui_left_VBox_top_MiniConsole_hp_target = Geyser.MiniConsole:new({
+	name = "ui_left_VBox_top_MiniConsole_hp_target",
+	x = 0, y = 0,
+	color = "black",
+	width = "100%", height = "100%",
+}, ui_left_VBox_top_holder)
+
+--------------------------------------------------------------------------------------------------------
+
+ui_left_VBox_middle_MiniConsole_group = Geyser.MiniConsole:new({
+	name = "ui_left_VBox_middle_MiniConsole_group",
+	x = 0, y = 0,
+	color = "black",
+	width = "100%", height = "100%",
+}, ui_left_VBox_middle_holder)
+
+--------------------------------------------------------------------------------------------------------
+
+chatLogMenu = chatLogMenu or {
+	tabNames = {"ALL", "SAYS", "NARRATES", "TELLS", "GROUP", "YELLS"},
+	tabs = {},
+	consoles = {},
+	activeTabStyle = [[
+    	background-color: rgb(0, 0, 90);
+    	border-top-left-radius: 10px;
+    	border-top-right-radius: 10px;
+    	margin-right: 1px;
+    	margin-left: 1px;
+			font-family: Verdana;
+			font-size: 12pt;
+  ]],
+  nonActiveTabStyle = [[
+    	background-color: rgb(0, 0,50);
+    	border-top-left-radius: 10px;
+    	border-top-right-radius: 10px;
+    	margin-right: 1px;
+    	margin-left: 1px;
+			font-family: Verdana;
+			font-size: 12pt;
+  ]],
+  width = "20%",
+  height = "40%",
+  current = "",
+}
+
+ui_left_VBox_bottom_Container_chatlog = Geyser.Container:new({
+	name = "ui_left_VBox_bottom_Container_chatlog",
+	x = 0, y = 0, -- x = "5%", y = "5%",
+	width = "100%", height = "100%"
+}, ui_left_VBox_bottom_holder)
+
+ui_left_VBox_bottom_Container_chatlog_HBox_menuheader = Geyser.HBox:new({
+	name = "ui_left_VBox_bottom_Container_chatlog_HBox_menuheader",
+	x = 0, y= 0,
+	width = "100%", height = "10%",
+}, ui_left_VBox_bottom_Container_chatlog)
+
+ui_left_VBox_bottom_Container_chatlog_Label_menufooter = Geyser.Label:new({
+	name = "ui_left_VBox_bottom_Container_chatlog_Label_menufooter",
+	x = 0, y= "10%",
+	width = "100%", height = "90%",
+}, ui_left_VBox_bottom_Container_chatlog)
+
+for k, v in pairs(chatLogMenu.tabNames) do
+
+	function chatLogMenu_click(tabName)
+		chatLogMenu.consoles[chatLogMenu.current .. "_console"]:hide()
+		chatLogMenu.tabs[chatLogMenu.current .. "_tab"]:setStyleSheet(chatLogMenu.nonActiveTabStyle)
+		chatLogMenu.current = tabName
+		chatLogMenu.consoles[chatLogMenu.current .. "_console"]:show()
+		chatLogMenu.tabs[chatLogMenu.current .. "_tab"]:setStyleSheet(chatLogMenu.activeTabStyle)
+	end
+
+	chatLogMenu.tabs[v.."_tab"] = Geyser.Label:new({
+    name = v.."_tab",
+		fgColor = "yellow",
+  }, ui_left_VBox_bottom_Container_chatlog_HBox_menuheader)	
+	chatLogMenu.tabs[v.."_tab"]:setStyleSheet(chatLogMenu.nonActiveTabStyle)
+	-- chatLogMenu.tabs[v.."_tab"]:setFontSize(12)
+	-- chatLogMenu.tabs[v.."_tab"]:setColor(0,255,0,150)
+	chatLogMenu.tabs[v.."_tab"]:echo("&lt;center&gt;"..v) 
+	chatLogMenu.tabs[v.."_tab"]:setClickCallback("chatLogMenu_click", v)
+	 
+	chatLogMenu.consoles[v.."_console"] = Geyser.MiniConsole:new({
+  	name = v.."_console",
+    x = 0, y = 0,
+    width = "100%",
+		autoWrap = true,
+    height = "100%",
+		color = "black",
+  }, ui_left_VBox_bottom_Container_chatlog_Label_menufooter)
+	chatLogMenu.consoles[v.."_console"]:hide()
+end
+
+chatLogMenu.current = "ALL"
+chatLogMenu.consoles["ALL" .. "_console"]:show()
+chatLogMenu.tabs["ALL" .. "_tab"]:setStyleSheet(chatLogMenu.activeTabStyle)
+
+--------------------------------------------------------------------------------------------------------</script>
+			<eventHandlerList />
+		</Script>
+	</ScriptPackage>
+</MudletPackage>
