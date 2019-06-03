@@ -7,11 +7,93 @@
 			<packageName></packageName>
 			<script>--------------------------------------------------------------------------------------------------------
 
+--[[ This area sets up the basic top-level layout of the the interface --]]
+
 local w,h = getMainWindowSize()
 setBorderLeft(w/4)
 setBorderRight(w/4)
 setBorderBottom(h/6)
 setBorderTop(0)
+--------------------------------------------------------------------------------------------------------
+
+--[[ This area stores state --]]
+
+ui_state = {
+	roomState = {
+  	roomName = "test",
+		roomDescription = "test",
+		roomChars = "test",
+		roomItems = "test",
+		roomExits = "test",
+	},
+	charState = {
+		charName = "test",
+		charSex = "test",
+		charRace = "test",
+		charAge = "test",
+		charPlayedTime = "test",
+		charLevel = "test",
+		charTitle = "test",
+		charHeight = "test",
+		charWeight = "test",
+		charPerception = {
+			vision = "test",
+			hearing = "test",
+			smell = "test",
+			alertness = "test",
+		},
+		charAlignment = "test",
+		charWelcomeLocations = "test",
+		charEquipmentWeight = "test",
+		charBaseAbilities = {
+			str = "test",
+			wis = "test",
+			str = "test",
+		},
+		charBonuses = {
+			offensiveBonus = "test",
+			dodgingBonus = "test",
+			parryingBonus = "test",
+		},
+		charIsWearingArmour = "test",
+		charStats = {
+			hit = "test",
+			mana = "test",
+			movementPoints = "test",
+		},
+		charMoodInfo = {
+			mood = "test",
+			fleeIfBelowHP = "test",
+		},
+		charExperienceInfo = {
+			experiencePoints = "test",
+			neededExperiencePoints = "test",
+			travelPoints = "test",
+			neededTravelPoints = "test",
+		},
+		charIsKnownForActsOfWar = "test",
+		charAmountOfMoney = "test",
+		charSpeakingWhichLanguage = "test",
+  	charIsHungry = "test",
+  	charIsThirsty = "test",
+		charWillSwim = "test",
+		charWillClimb = "test",
+		charIsInCombat = "test",
+		charSitStandSleep = "test",
+		charIsInCombat = "test",
+		charIsInAGroup = "test",
+		charIsMounted = "test",
+		charNameOfMount = "test",
+		charIsIdle = "test",
+		charInventory = {},
+		charEquipped = {},
+	},
+	groupState = {
+		groupMembers = "test", --[[ This area will hold objects containing groupmember names stats and buffs/debuffs --]]
+		numberOfGroupMembers = "test",
+	},
+	statusBarDecoderState = {},
+}
 
 --------------------------------------------------------------------------------------------------------
 
